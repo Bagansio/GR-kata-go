@@ -1,17 +1,16 @@
 package main
 
 import (
+	g "GR-kata-go/pkg/gildedrose"
 	"fmt"
 	"os"
 	"strconv"
-
-	"github.com/emilybache/gildedrose-refactoring-kata/gildedrose"
 )
 
 func main() {
 	fmt.Println("OMGHAI!")
 
-	var items = []*gildedrose.Item{
+	var items = []*g.Item{
 		{"+5 Dexterity Vest", 10, 20},
 		{"Aged Brie", 2, 0},
 		{"Elixir of the Mongoose", 5, 7},
@@ -36,9 +35,8 @@ func main() {
 
 	for day := 0; day < days; day++ {
 		fmt.Printf("-------- day %d --------\n", day)
-		fmt.Println("Name, SellIn, Quality")
 		for i := 0; i < len(items); i++ {
-			fmt.Println(items[i])
+			fmt.Printf("%+v\n", *items[i])
 		}
 		fmt.Println("")
 		for i := 0; i < len(items); i++ {

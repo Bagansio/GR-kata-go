@@ -1,6 +1,8 @@
 package gildedrose
 
-import "strings"
+import (
+	"strings"
+)
 
 // Item types
 const (
@@ -96,38 +98,34 @@ func (item *Item) SulfurasUpdateQuality() {
 
 func (item *Item) ConjuredUpdateQuality() {
 
-	if item.Quality > MIN_QUALITY {
-		item.Quality -= 2
+	qualityToSubs := 2
+	if item.SellIn <= EXPIRATION_SELL_IN {
+		qualityToSubs = 4
 	}
 
-	if item.Quality > MIN_QUALITY && item.SellIn <= EXPIRATION_SELL_IN {
-		item.Quality -= 2
+	item.Quality -= qualityToSubs
+
+	if item.Quality < MIN_QUALITY {
+		item.Quality = MIN_QUALITY
 	}
 
 	item.SellIn--
 }
 
 /*
-There are different approach of this depending of efficiency needs or maintainability, such as
+There are different approach of this depending of efficiency needs or maintainability
+*/
+func (item *Item) NormalUpdateQuality() {
 
 	qualityToSubs := 1
 	if item.SellIn <= EXPIRATION_SELL_IN {
 		qualityToSubs = 2
 	}
 
-	if item.Quality <= MIN_QUALITY {
-		qualityToSubs = 0
-	}
-
 	item.Quality -= qualityToSubs
-*/
-func (item *Item) NormalUpdateQuality() {
-	if item.Quality > MIN_QUALITY {
-		item.Quality--
-	}
 
-	if item.Quality > MIN_QUALITY && item.SellIn <= EXPIRATION_SELL_IN {
-		item.Quality--
+	if item.Quality < MIN_QUALITY {
+		item.Quality = MIN_QUALITY
 	}
 
 	item.SellIn--
